@@ -1,5 +1,5 @@
-#ifndef SIM_WINDOW_H
-#define SIM_WINDOW_H
+#ifndef SIM_WINDOW_HPP
+#define SIM_WINDOW_HPP
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -36,10 +36,10 @@ class GWindow
 		GWindow( );
 	
 	public:
-		///
-		/// @brief Root SFML window
-		///
-		sf::RenderWindow root = sf::RenderWindow( sf::VideoMode( D_WIDTH, D_HEIGHT ), "Title" );
+	///
+	/// @brief Root SFML window
+	///
+	sf::RenderWindow root = sf::RenderWindow(sf::VideoMode(D_WIDTH, D_HEIGHT), "");
 		
 		///
 		/// @brief Copy constructor just deletes
@@ -62,4 +62,4 @@ class GWindow
 		void Run( );
 	};
 
-#endif //SIM_WINDOW_H
+#endif //SIM_WINDOW_HPP

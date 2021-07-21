@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <iostream>
-#include "Window.h"
-#include "../ components/view/shapes/GRectangle.h"
+#include "Window.hpp"
+#include "GRectangle.hpp"
 
 /*
  *
@@ -44,59 +44,54 @@
 
 
 namespace BS_TEST {
-			std::vector< int > s_inp = {
-					665, 599, 134, 208, 3, 133, 215, 705, 691, 691, 87, 179, 344, 86, 824, 749, 695, 173, 222, 524, 598, 741, 359, 638, 330, 586, 961,
-					376, 716, 113, 330, 602, 280, 394, 544, 991, 642, 465, 42, 879, 802, 918, 278, 904, 922, 489
-			};
-			
-			template < typename T >
-			void swap_pointer_values( T* in_Pt1, T* in_Pt2 )
-				{
-					
-					T l_Save = *in_Pt2;
-					*in_Pt2 = *in_Pt1;
-					*in_Pt1 = l_Save;
-				}
-			
-			bool sort_pass( std::vector< int >& in_Query )
-				{
-					
-					bool out_ChangesMade = false;
-					for ( size_t i = 0; i < in_Query.size() - 1; i ++ )
-						{
-							auto l_Current = in_Query.at( i );
-							auto l_Next = in_Query.at( i + 1 );
-							if ( l_Current > l_Next )
-								{
-									auto l_CurrentPtr = &in_Query.at( i );
-									auto l_NextPtr = &in_Query.at( i + 1 );
-									swap_pointer_values( l_CurrentPtr, l_NextPtr );
-									out_ChangesMade = true;
-								}
-						}
-					return out_ChangesMade;
-				}
-			
-			void draw( int in_Count )
-				{
-					
-					std::printf( "Pass #%i\n", in_Count );
-				}
-			
-			void run( )
-				{
-					
-					GWindow& window = GWindow::Get_Instance();
-					GRectangle rect;
-					rect.Draw(window);
-					window.Run();
-					int counter = 0;
-					do
-						{
-							draw( counter );
-							counter ++;
-						}
-					while ( sort_pass( s_inp ) );
-				}
+	std::vector<int> s_inp = {665, 599, 134, 208, 3, 133, 215, 705, 691, 691, 87, 179, 344, 86, 824, 749, 695, 173, 222, 524, 598, 741, 359, 638, 330,
+	                          586, 961, 376, 716, 113, 330, 602, 280, 394, 544, 991, 642, 465, 42, 879, 802, 918, 278, 904, 922, 489};
+	
+	template<typename T>
+	void swap_pointer_values(T *in_Pt1, T *in_Pt2)
+	{
+		
+		T l_Save = *in_Pt2;
+		*in_Pt2 = *in_Pt1;
+		*in_Pt1 = l_Save;
 	}
+	
+	bool sort_pass(std::vector<int> &in_Query)
+	{
+		
+		bool out_ChangesMade = false;
+		for (size_t i = 0; i < in_Query.size() - 1; i++)
+		{
+			auto l_Current = in_Query.at(i);
+			auto l_Next = in_Query.at(i + 1);
+			if (l_Current > l_Next)
+			{
+				auto l_CurrentPtr = &in_Query.at(i);
+				auto l_NextPtr = &in_Query.at(i + 1);
+				swap_pointer_values(l_CurrentPtr, l_NextPtr);
+				out_ChangesMade = true;
+			}
+		}
+		return out_ChangesMade;
+	}
+	
+	void draw(int in_Count)
+	{
+		std::printf("Pass #%i\n", in_Count);
+	}
+	
+	void run()
+	{
+		GWindow &window = GWindow::Get_Instance();
+		GRectangle rect;
+		rect.Draw(window);
+		window.Run();
+		int counter = 0;
+		do
+		{
+			draw(counter);
+			counter++;
+		} while (sort_pass(s_inp));
+	}
+}
 #endif
