@@ -11,22 +11,35 @@
 class GVertex
 {
 private:
-	static float s_Origin[2]{0, 0};
-	float m_X;
-	float m_Y;
+	static float s_Origin[2];
+	static GVertex s_OriginVertex;
 
+private:
+	float m_X = 0;
+	float m_Y = 0;
+	const GVertex* m_RelationPoint = GVertex::Get_Origin_Vertex();
 public:
-	GVertex(float x, float y) : m_X(x), m_Y(y)
-	{
+	explicit GVertex(const float& XY)
+			: m_X(XY), m_Y(XY)
+	{};
 	
-	}
+	GVertex(const float& X, const float& Y)
+			: m_X(X), m_Y(Y)
+	{};
 	
-	sf::Vector2f GetVector() const
-	{
-		
-		return sf::Vector2f(GVertex::s_Origin[0] + this->m_X, GVertex::s_Origin[1] - this->m_Y);
-	}
+	GVertex(const float& X, const float& Y, const GVertex* const in_RelationPoint)
+			: m_X(X), m_Y(Y), m_RelationPoint(in_RelationPoint)
+	{};
 	
+	static const GVertex* Get_Origin_Vertex();
+	static void Set_Origin(const float& in_X, const float& in_Y);
+	sf::Vector2f GetVector() const;
+	void SetX(const float& in_X);
+	void SetY(const float& in_Y);
+	void SetRelationPoint(const GVertex* in_Vertex);
+	void TranslateX(const float& in_Amount);
+	void TranslateY(const float& in_Amount);
+	void Translate(const float in_Amounts[2]);
 };
 
 #endif //SIM_GVERTEX_HPP
