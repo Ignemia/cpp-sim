@@ -1,10 +1,9 @@
 //
 // Created by adam on 7/21/2021.
 //
-
+#pragma once
 #ifndef SIM_GVERTEX_HPP
 #define SIM_GVERTEX_HPP
-#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +18,9 @@ private:
 	float m_Y = 0;
 	const GVertex* m_RelationPoint = GVertex::Get_Origin_Vertex();
 public:
+	GVertex()
+	{}
+	
 	explicit GVertex(const float& XY)
 			: m_X(XY), m_Y(XY)
 	{};

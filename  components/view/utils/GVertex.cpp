@@ -2,12 +2,17 @@
 // Created by adam on 7/21/2021.
 //
 
+#include <iostream>
 #include "GVertex.hpp"
+
+float GVertex::s_Origin[2]{0, 0};
+GVertex GVertex::s_OriginVertex(GVertex(GVertex::s_Origin[0], GVertex::s_Origin[1]));
 
 void GVertex::Set_Origin(const float& in_X, const float& in_Y)
 {
 	GVertex::s_Origin[0] = in_X;
 	GVertex::s_Origin[1] = in_Y;
+	std::cout << "[ " << s_Origin[0] << " : " << s_Origin[1] << " ]" << std::endl;
 	GVertex::s_OriginVertex = GVertex(GVertex::s_Origin[0], GVertex::s_Origin[1]);
 }
 

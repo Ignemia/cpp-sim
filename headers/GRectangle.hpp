@@ -7,15 +7,18 @@
 
 #include <Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "GVertex.hpp"
 
 class GRectangle
 {
+private:
+	float* m_Sizes = new float[2];
+	GVertex m_Position;
+	GVertex* m_Vertices = new GVertex[4];
 public:
-	float m_Sizes[2] = {50, 100};
-	
-	float m_Position[2] = {480, 260};
-	
-	void Draw(GWindow &in_Window);
+	GRectangle(const float& in_OriginX, const float& in_OriginY, const float& in_Width, const float& in_Height);
+	sf::VertexArray GetVertexArray();
+	void Draw(GWindow& in_Window);
 };
 
 #endif //SIM_GRECTANGLE_HPP

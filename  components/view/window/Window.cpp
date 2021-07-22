@@ -1,9 +1,12 @@
+#include <GVertex.hpp>
 #include "Window.hpp"
 
 GWindow *GWindow::m_Instance = nullptr;
 
 GWindow::GWindow()
 {
+	auto t_WindowSize = root.getSize();
+	GVertex::Set_Origin((float) (t_WindowSize.x / 2.0), (float) (t_WindowSize.y / 2.0));
 }
 
 void GWindow::Run()

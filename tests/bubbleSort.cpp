@@ -44,11 +44,10 @@
 
 
 namespace BS_TEST {
-	std::vector<int> s_inp = {665, 599, 134, 208, 3, 133, 215, 705, 691, 691, 87, 179, 344, 86, 824, 749, 695, 173, 222, 524, 598, 741, 359, 638, 330,
-	                          586, 961, 376, 716, 113, 330, 602, 280, 394, 544, 991, 642, 465, 42, 879, 802, 918, 278, 904, 922, 489};
+	std::vector<int> s_inp = {665, 599, 134, 208, 3, 133, 215, 705, 691, 691, 87, 179, 344, 86, 824, 749};
 	
 	template<typename T>
-	void swap_pointer_values(T *in_Pt1, T *in_Pt2)
+	void swap_pointer_values(T* in_Pt1, T* in_Pt2)
 	{
 		
 		T l_Save = *in_Pt2;
@@ -56,7 +55,7 @@ namespace BS_TEST {
 		*in_Pt1 = l_Save;
 	}
 	
-	bool sort_pass(std::vector<int> &in_Query)
+	bool sort_pass(std::vector<int>& in_Query)
 	{
 		
 		bool out_ChangesMade = false;
@@ -82,8 +81,8 @@ namespace BS_TEST {
 	
 	void run()
 	{
-		GWindow &window = GWindow::Get_Instance();
-		GRectangle rect;
+		GWindow& window = GWindow::Get_Instance();
+		GRectangle rect = GRectangle(0, 0, 100, 50);
 		rect.Draw(window);
 		window.Run();
 		int counter = 0;
