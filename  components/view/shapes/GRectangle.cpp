@@ -27,9 +27,6 @@ sf::VertexArray GRectangle::GetVertexArray()
 	for (size_t i = 0; i < 4; i++)
 	{
 		out_VertexArray[i] = this->m_Vertices[i].GetVector();
-
-//		std::cout << m_Vertices[i].GetY() << std::endl;
-		
 		out_VertexArray[i].color = sf::Color::White;
 	}
 	return out_VertexArray;
@@ -37,10 +34,21 @@ sf::VertexArray GRectangle::GetVertexArray()
 
 void GRectangle::Draw(sf::RenderWindow& in_Window)
 {
+	std::cout << this->m_Position.GetX() << " : " << this->GetHeight() << std::endl;
 	in_Window.draw(GetVertexArray());
 }
 
 float GRectangle::GetHeight()
 {
 	return this->m_Sizes[1];
+}
+
+void GRectangle::SetX(const float& in_NewX)
+{
+	this->m_Position.SetX(in_NewX);
+}
+
+float GRectangle::GetX()
+{
+	return this->m_Position.GetX();
 }

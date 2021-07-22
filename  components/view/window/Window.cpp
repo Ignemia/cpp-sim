@@ -10,13 +10,8 @@ GWindow::GWindow()
 	GVertex::Set_Origin((float) (t_WindowSize.x / 2.0), (float) (t_WindowSize.y / 2.0));
 }
 
-void GWindow::Run(std::vector<GRectangle>& in_Rects)
+void GWindow::Run()
 {
-	for (auto r : in_Rects)
-	{
-		r.Draw(this->root);
-	}
-	
 	while (this->root.isOpen())
 	{
 		sf::Event event{};
@@ -28,12 +23,7 @@ void GWindow::Run(std::vector<GRectangle>& in_Rects)
 			}
 		}
 		this->root.clear();
-		
-		for (auto r : in_Rects)
-		{
-			r.Draw(this->root);
-		}
-		
+		for (const auto& l_Df : this->m_drawFunction) l_Df(&this->root);
 		this->root.display();
 	}
 }

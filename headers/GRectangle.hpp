@@ -19,6 +19,8 @@ public:
 	sf::VertexArray GetVertexArray();
 	void Draw(sf::RenderWindow& in_Window);
 	float GetHeight();
+	void SetX(const float& in_NewX);
+	float GetX();
 };
 
 #endif //SIM_GRECTANGLE_HPP

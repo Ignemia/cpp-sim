@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <functional>
 #include "Window.hpp"
 #include "GRectangle.hpp"
 
@@ -44,15 +45,13 @@
 
 
 namespace BS_TEST {
-	std::vector<int> s_Inp = {1000, 10, 150, 256, 180, 800, 350, 25, 160, 980, 753, 420, 530, 260, 20, 700, 850};
+	std::vector<int> s_Inp;
 	
-	template<typename T>
-	void swap_pointer_values(T* in_Pt1, T* in_Pt2)
+	void swap_pointer_values(GRectangle* in_Pt1, GRectangle* in_Pt2)
 	{
-		
-		T l_Save = *in_Pt2;
+		GRectangle t_Save = *in_Pt2;
 		*in_Pt2 = *in_Pt1;
-		*in_Pt1 = l_Save;
+		*in_Pt1 = t_Save;
 	}
 	
 	bool sort_pass(std::vector<GRectangle>& in_Query)
@@ -61,40 +60,72 @@ namespace BS_TEST {
 		bool out_ChangesMade = false;
 		for (size_t i = 0; i < in_Query.size() - 1; i++)
 		{
-			auto l_Current = in_Query.at(i);
-			auto l_Next = in_Query.at(i + 1);
+			GRectangle& l_Current = in_Query.at(i);
+			GRectangle& l_Next = in_Query.at(i + 1);
 			if (l_Current.GetHeight() > l_Next.GetHeight())
 			{
-				auto l_CurrentPtr = &in_Query.at(i);
-				auto l_NextPtr = &in_Query.at(i + 1);
-				swap_pointer_values(l_CurrentPtr, l_NextPtr);
+				
+				float t_Save = l_Current.GetX();
+				l_Current.SetX(l_Next.GetX());
+				l_Next.SetX(t_Save);
+				
+				swap_pointer_values(&l_Current, &l_Next);
+				
 				out_ChangesMade = true;
 			}
 		}
+//		if(out_ChangesMade) {
+//			for (auto rect : in_Query) std::cout << rect.GetHeight() << " ";
+//			std::cout << std::endl;
+//		}
+		
 		return out_ChangesMade;
 	}
 	
-	void run()
+	void GenerateValues()
 	{
-		GWindow& window = GWindow::Get_Instance();
+		s_Inp.reserve(17);
+		std::srand(std::time(NULL));
+		
+		for (int i = 0; i < 18; i++)
+		{
+			s_Inp.emplace_back(rand() % 1000);
+		}
+	}
+	
+	void GenerateRectangles(std::vector<GRectangle>& rectangles)
+	{
 		float t_Width = 80;
 		float t_MinHeight = 50.0;
 		float t_MaxHeight = 500.0;
 		float t_MinValue = 1.0;
 		float t_MaxValue = 1000.0;
-		std::vector<GRectangle> v_Rects;
 		int counter = 0;
 		for (auto i : s_Inp)
 		{
 			auto h = (t_MaxHeight - t_MinHeight) * (i / (t_MaxValue - t_MinValue)) + t_MinHeight;
 			
 			float t_XPos = counter * t_Width + t_Width / 2;
-			std::cout << t_XPos << std::endl;
 			GRectangle* n = new GRectangle(t_XPos, 0, t_Width, h);
-			v_Rects.push_back(*n);
+			rectangles.push_back(*n);
 			counter++;
 		}
-		window.Run(v_Rects);
+	}
+	
+	void run()
+	{
+		GenerateValues();
+		GWindow& window = GWindow::Get_Instance();
+		std::vector<GRectangle> v_Rects;
+		GenerateRectangles(v_Rects);
+		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
+		{
+			sort_pass(v_Rects);
+			for (auto rect : v_Rects) rect.Draw(window.root);
+			std::cout << std::endl;
+		};
+		window.m_drawFunction.push_back(a);
+		window.Run();
 	}
 }
 #endif
