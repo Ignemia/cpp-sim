@@ -25,6 +25,7 @@ sf::VertexArray GRectangle::GetVertexArray()
 	{
 		out_VertexArray[i] = this->m_Vertices[i].GetVector();
 		out_VertexArray[i].color = sf::Color::White;
+//		std::cout << sf::Color::White << std::endl;
 	}
 	return out_VertexArray;
 }

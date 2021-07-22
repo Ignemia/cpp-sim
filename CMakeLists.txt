@@ -3,7 +3,7 @@ project(sim)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(sim main.cpp headers/Window.hpp " components/view/window/Window.cpp" tests/bubbleSort.cpp " components/view/shapes/GRectangle.cpp" headers/GRectangle.hpp " components/view/utils/GVertex.cpp" headers/GVertex.hpp)
+add_executable(sim main.cpp headers/Window.hpp " components/view/window/Window.cpp" tests/bubbleSort.cpp " components/view/shapes/GRectangle.cpp" headers/GRectangle.hpp " components/view/utils/GVertex.cpp" headers/GVertex.hpp " components/view/color/GColor.cpp" headers/GColor.hpp)
 
 include_directories(headers a:/SFML-64/include)
 
