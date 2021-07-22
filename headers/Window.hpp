@@ -3,6 +3,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "GRectangle.hpp"
 
 #define D_WIDTH 1280
 #define D_HEIGHT 720
@@ -55,11 +56,11 @@ class GWindow
 		/// @brief If instance is present returns it. If not assigns it and then returns it
 		///
 		static GWindow& Get_Instance( );
-		
-		///
-		/// @brief Opening the window
-		///
-		void Run( );
+	
+	///
+	/// @brief Opening the window
+	///
+	void Run(std::vector<GRectangle>& in_Rects);
 	};
 
 #endif //SIM_WINDOW_HPP

@@ -5,7 +5,6 @@
 #ifndef SIM_GRECTANGLE_HPP
 #define SIM_GRECTANGLE_HPP
 
-#include <Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "GVertex.hpp"
 
@@ -18,7 +17,8 @@ private:
 public:
 	GRectangle(const float& in_OriginX, const float& in_OriginY, const float& in_Width, const float& in_Height);
 	sf::VertexArray GetVertexArray();
-	void Draw(GWindow& in_Window);
+	void Draw(sf::RenderWindow& in_Window);
+	float GetHeight();
 };
 
 #endif //SIM_GRECTANGLE_HPP

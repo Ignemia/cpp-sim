@@ -1,4 +1,5 @@
 #include <GVertex.hpp>
+#include <iostream>
 #include "Window.hpp"
 
 GWindow *GWindow::m_Instance = nullptr;
@@ -9,8 +10,12 @@ GWindow::GWindow()
 	GVertex::Set_Origin((float) (t_WindowSize.x / 2.0), (float) (t_WindowSize.y / 2.0));
 }
 
-void GWindow::Run()
+void GWindow::Run(std::vector<GRectangle>& in_Rects)
 {
+	for (auto r : in_Rects)
+	{
+		r.Draw(this->root);
+	}
 	
 	while (this->root.isOpen())
 	{
@@ -22,6 +27,14 @@ void GWindow::Run()
 				this->root.close();
 			}
 		}
+		this->root.clear();
+		
+		for (auto r : in_Rects)
+		{
+			r.Draw(this->root);
+		}
+		
+		this->root.display();
 	}
 }
 

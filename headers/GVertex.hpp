@@ -38,6 +38,10 @@ public:
 	sf::Vector2f GetVector() const;
 	void SetX(const float& in_X);
 	void SetY(const float& in_Y);
+	float GetX() const;
+	float GetY() const;
+	float GetAbsoluteX() const;
+	float GetAbsoluteY() const;
 	void SetRelationPoint(const GVertex* in_Vertex);
 	void TranslateX(const float& in_Amount);
 	void TranslateY(const float& in_Amount);

@@ -44,7 +44,7 @@
 
 
 namespace BS_TEST {
-	std::vector<int> s_inp = {665, 599, 134, 208, 3, 133, 215, 705, 691, 691, 87, 179, 344, 86, 824, 749};
+	std::vector<int> s_Inp = {1000, 10, 150, 256, 180, 800, 350, 25, 160, 980, 753, 420, 530, 260, 20, 700, 850};
 	
 	template<typename T>
 	void swap_pointer_values(T* in_Pt1, T* in_Pt2)
@@ -55,7 +55,7 @@ namespace BS_TEST {
 		*in_Pt1 = l_Save;
 	}
 	
-	bool sort_pass(std::vector<int>& in_Query)
+	bool sort_pass(std::vector<GRectangle>& in_Query)
 	{
 		
 		bool out_ChangesMade = false;
@@ -63,7 +63,7 @@ namespace BS_TEST {
 		{
 			auto l_Current = in_Query.at(i);
 			auto l_Next = in_Query.at(i + 1);
-			if (l_Current > l_Next)
+			if (l_Current.GetHeight() > l_Next.GetHeight())
 			{
 				auto l_CurrentPtr = &in_Query.at(i);
 				auto l_NextPtr = &in_Query.at(i + 1);
@@ -74,23 +74,27 @@ namespace BS_TEST {
 		return out_ChangesMade;
 	}
 	
-	void draw(int in_Count)
-	{
-		std::printf("Pass #%i\n", in_Count);
-	}
-	
 	void run()
 	{
 		GWindow& window = GWindow::Get_Instance();
-		GRectangle rect = GRectangle(0, 0, 100, 50);
-		rect.Draw(window);
-		window.Run();
+		float t_Width = 80;
+		float t_MinHeight = 50.0;
+		float t_MaxHeight = 500.0;
+		float t_MinValue = 1.0;
+		float t_MaxValue = 1000.0;
+		std::vector<GRectangle> v_Rects;
 		int counter = 0;
-		do
+		for (auto i : s_Inp)
 		{
-			draw(counter);
+			auto h = (t_MaxHeight - t_MinHeight) * (i / (t_MaxValue - t_MinValue)) + t_MinHeight;
+			
+			float t_XPos = counter * t_Width + t_Width / 2;
+			std::cout << t_XPos << std::endl;
+			GRectangle* n = new GRectangle(t_XPos, 0, t_Width, h);
+			v_Rects.push_back(*n);
 			counter++;
-		} while (sort_pass(s_inp));
+		}
+		window.Run(v_Rects);
 	}
 }
 #endif
