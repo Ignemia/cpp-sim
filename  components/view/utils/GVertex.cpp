@@ -12,7 +12,6 @@ void GVertex::Set_Origin(const float& in_X, const float& in_Y)
 {
 	GVertex::s_Origin[0] = in_X;
 	GVertex::s_Origin[1] = in_Y;
-//	std::cout << "[ " << GVertex::s_Origin[0] << " : " << GVertex::s_Origin[1] << " ]" << std::endl;
 	GVertex::s_OriginVertex = GVertex(GVertex::s_Origin[0], GVertex::s_Origin[1]);
 }
 
@@ -25,7 +24,6 @@ sf::Vector2f GVertex::GetVector() const
 {
 	float t_X = GetAbsoluteX();
 	float t_Y = GetAbsoluteY();
-	
 	sf::Vector2f out_Vector = sf::Vector2f(t_X, t_Y);
 	return out_Vector;
 }
@@ -53,7 +51,7 @@ float GVertex::GetY() const
 float GVertex::GetAbsoluteX() const
 {
 	float out_X = 0;
-	auto t_Traversal = this->m_RelationPoint;
+	GVertex* t_Traversal = this->m_RelationPoint;
 	do
 	{
 		out_X += t_Traversal->GetX();
@@ -65,7 +63,7 @@ float GVertex::GetAbsoluteX() const
 float GVertex::GetAbsoluteY() const
 {
 	float out_Y = 0;
-	auto t_Traversal = this->m_RelationPoint;
+	GVertex* t_Traversal = this->m_RelationPoint;
 	do
 	{
 		out_Y -= t_Traversal->GetY();
@@ -75,7 +73,7 @@ float GVertex::GetAbsoluteY() const
 	return out_Y - this->GetY();
 }
 
-void GVertex::SetRelationPoint(const GVertex* in_Vertex)
+void GVertex::SetRelationPoint(GVertex* in_Vertex)
 {
 	this->m_RelationPoint = in_Vertex;
 }

@@ -65,11 +65,11 @@ namespace BS_TEST {
 			if (l_Current.GetHeight() > l_Next.GetHeight())
 			{
 				
+				swap_pointer_values(&l_Current, &l_Next);
+				
 				float t_Save = l_Current.GetX();
 				l_Current.SetX(l_Next.GetX());
 				l_Next.SetX(t_Save);
-				
-				swap_pointer_values(&l_Current, &l_Next);
 				
 				out_ChangesMade = true;
 			}
@@ -78,7 +78,6 @@ namespace BS_TEST {
 //			for (auto rect : in_Query) std::cout << rect.GetHeight() << " ";
 //			std::cout << std::endl;
 //		}
-		
 		return out_ChangesMade;
 	}
 	
@@ -120,9 +119,8 @@ namespace BS_TEST {
 		GenerateRectangles(v_Rects);
 		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
 		{
-			sort_pass(v_Rects);
 			for (auto rect : v_Rects) rect.Draw(window.root);
-			std::cout << std::endl;
+			sort_pass(v_Rects);
 		};
 		window.m_drawFunction.push_back(a);
 		window.Run();

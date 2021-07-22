@@ -16,7 +16,7 @@ private:
 private:
 	float m_X = 0;
 	float m_Y = 0;
-	const GVertex* m_RelationPoint = GVertex::Get_Origin_Vertex();
+	GVertex* m_RelationPoint = (GVertex*) GVertex::Get_Origin_Vertex();
 public:
 	GVertex()
 	{}
@@ -29,7 +29,7 @@ public:
 			: m_X(X), m_Y(Y)
 	{};
 	
-	GVertex(const float& X, const float& Y, const GVertex* const in_RelationPoint)
+	GVertex(const float& X, const float& Y, GVertex* in_RelationPoint)
 			: m_X(X), m_Y(Y), m_RelationPoint(in_RelationPoint)
 	{};
 	
@@ -42,7 +42,7 @@ public:
 	float GetY() const;
 	float GetAbsoluteX() const;
 	float GetAbsoluteY() const;
-	void SetRelationPoint(const GVertex* in_Vertex);
+	void SetRelationPoint(GVertex* in_Vertex);
 	void TranslateX(const float& in_Amount);
 	void TranslateY(const float& in_Amount);
 	void Translate(const float in_Amounts[2]);
