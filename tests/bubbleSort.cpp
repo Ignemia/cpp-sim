@@ -45,6 +45,9 @@
 
 
 namespace BS_TEST {
+	
+	int g_Count = 1000;
+	
 	std::vector<int> s_Inp;
 	
 	void swap_pointer_values(GRectangle* in_Pt1, GRectangle* in_Pt2)
@@ -83,10 +86,10 @@ namespace BS_TEST {
 	
 	void GenerateValues()
 	{
-		s_Inp.reserve(17);
+		s_Inp.reserve(g_Count);
 		std::srand(std::time(NULL));
 		
-		for (int i = 0; i < 18; i++)
+		for (int i = 0; i < g_Count + 1; i++)
 		{
 			s_Inp.emplace_back(rand() % 1000);
 		}
@@ -94,7 +97,7 @@ namespace BS_TEST {
 	
 	void GenerateRectangles(std::vector<GRectangle>& rectangles)
 	{
-		float t_Width = 80;
+		float t_Width = 1280.0f / float(g_Count);
 		float t_MinHeight = 50.0;
 		float t_MaxHeight = 500.0;
 		float t_MinValue = 1.0;

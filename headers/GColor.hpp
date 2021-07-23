@@ -15,11 +15,10 @@ private:
 	unsigned int rgba[4] = {0, 0, 0, 255};
 public:
 	GColor();
-	GColor(const unsigned int& in_GrayScale);
+	explicit GColor(const unsigned int& in_GrayScale);
 	GColor(const unsigned int& in_GrayScale, const unsigned int& in_Opacity);
 	GColor(const unsigned int& in_Red, const unsigned int& in_Green, const unsigned int& in_Blue);
 	GColor(const unsigned int& in_Red, const unsigned int& in_Green, const unsigned int& in_Blue, const unsigned int& in_Opacity);
-	static GColor Parse_NumericValue(const unsigned int& in_Value);
 	static GColor Parse_HSV(const std::vector<unsigned int> in_HSV);
 	static GColor Parse_Wavelength(const unsigned int& in_Value);
 	static GColor Parse_String(const std::string& in_Value);
@@ -37,7 +36,6 @@ public:
 	unsigned int GetHue();
 	unsigned int GetSaturation();
 	unsigned int GetValue();
-	unsigned int GetNumericValue();
 	GColor GetComplimentaryColors(const unsigned int in_Count);
 	sf::Color ToSFML();
 };
