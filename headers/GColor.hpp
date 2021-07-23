@@ -9,10 +9,18 @@
 #include <vector>
 #include <SFML/Graphics/Color.hpp>
 
+struct HSVMeta
+{
+	float fMin, fMax;
+	float rgb[3];
+	char charMin, charMax;
+};
+
 class GColor
 {
 private:
 	unsigned int rgba[4] = {0, 0, 0, 255};
+	HSVMeta getHSVSetup();
 public:
 	GColor();
 	explicit GColor(const unsigned int& in_GrayScale);
@@ -33,9 +41,9 @@ public:
 	unsigned int GetRed();
 	unsigned int GetGreen();
 	unsigned int GetBlue();
-	unsigned int GetHue();
-	unsigned int GetSaturation();
-	unsigned int GetValue();
+	float GetHue();
+	float GetSaturation();
+	float GetValue();
 	GColor GetComplimentaryColors(const unsigned int in_Count);
 	sf::Color ToSFML();
 };

@@ -46,7 +46,7 @@
 
 namespace BS_TEST {
 	
-	int g_Count = 12800;
+	int g_Count = 100;
 	
 	std::vector<int> s_Inp;
 	
