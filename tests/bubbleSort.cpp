@@ -46,7 +46,7 @@
 
 namespace BS_TEST {
 	
-	int g_Count = 1000;
+	int g_Count = 12800;
 	
 	std::vector<int> s_Inp;
 	
@@ -77,10 +77,6 @@ namespace BS_TEST {
 				out_ChangesMade = true;
 			}
 		}
-//		if(out_ChangesMade) {
-//			for (auto rect : in_Query) std::cout << rect.GetHeight() << " ";
-//			std::cout << std::endl;
-//		}
 		return out_ChangesMade;
 	}
 	
