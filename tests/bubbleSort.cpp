@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <GColor.hpp>
+#include <cmath>
 #include "Window.hpp"
 #include "GRectangle.hpp"
 
@@ -45,8 +47,9 @@
 
 
 namespace BS_TEST {
-	
-	int g_Count = 100;
+	int g_WindowWidth = 1280;
+	float g_Density = .5f;
+	int g_Count = g_WindowWidth * g_Density;
 	
 	std::vector<int> s_Inp;
 	
@@ -65,7 +68,7 @@ namespace BS_TEST {
 		{
 			GRectangle& l_Current = in_Query.at(i);
 			GRectangle& l_Next = in_Query.at(i + 1);
-			if (l_Current.GetHeight() > l_Next.GetHeight())
+			if (l_Current.GetColor().GetHue() > l_Next.GetColor().GetHue())
 			{
 				
 				swap_pointer_values(&l_Current, &l_Next);
@@ -94,17 +97,21 @@ namespace BS_TEST {
 	void GenerateRectangles(std::vector<GRectangle>& rectangles)
 	{
 		float t_Width = 1280.0f / float(g_Count);
-		float t_MinHeight = 50.0;
-		float t_MaxHeight = 500.0;
-		float t_MinValue = 1.0;
-		float t_MaxValue = 1000.0;
 		int counter = 0;
 		for (auto i : s_Inp)
 		{
-			auto h = (t_MaxHeight - t_MinHeight) * (i / (t_MaxValue - t_MinValue)) + t_MinHeight;
-			
 			float t_XPos = counter * t_Width + t_Width / 2;
-			GRectangle* n = new GRectangle(t_XPos, 0, t_Width, h);
+			auto t_Hue = [&]()
+			{
+				float l_Max = 2 * M_PI;
+				float l_Min = 0;
+				float bottom = 0.0f;
+				float top = 1000.0f;
+				
+				return l_Min + ((top - (float) i) / (top - bottom)) * (l_Max - l_Min);
+			};
+			auto c = GColor::Parse_HSV({t_Hue(), 1.f, 1.f});
+			auto* n = new GRectangle(t_XPos, 0, t_Width, 150, c);
 			rectangles.push_back(*n);
 			counter++;
 		}
@@ -112,16 +119,27 @@ namespace BS_TEST {
 	
 	void run()
 	{
-		GenerateValues();
+		
+		GColor c = GColor::Parse_HSV({(310*M_PI)/180, 1.f, 1.f});
+		std::cout << c.GetHue();
+		
+		
+//		GenerateValues();
 		GWindow& window = GWindow::Get_Instance();
-		std::vector<GRectangle> v_Rects;
-		GenerateRectangles(v_Rects);
-		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
-		{
-			for (auto rect : v_Rects) rect.Draw(window.root);
-			sort_pass(v_Rects);
-		};
-		window.m_drawFunction.push_back(a);
+//		std::vector<GRectangle> v_Rects;
+//		GenerateRectangles(v_Rects);
+//		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
+//		{
+//			for (auto rect : v_Rects) rect.Draw(window.root);
+//			if (!sort_pass(v_Rects))
+//			{
+//				s_Inp.clear();
+//				v_Rects.clear();
+//				GenerateValues();
+//				GenerateRectangles(v_Rects);
+//			}
+//		};
+//		window.m_drawFunction.push_back(a);
 		window.Run();
 	}
 }

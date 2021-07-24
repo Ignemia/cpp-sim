@@ -16,6 +16,22 @@ GRectangle::GRectangle(const float& in_OriginX, const float& in_OriginY, const f
 	this->m_Vertices[1] = GVertex(-t_X, t_Y, &this->m_Position);    // -x +y
 	this->m_Vertices[2] = GVertex(t_X, t_Y, &this->m_Position);     // +x +y
 	this->m_Vertices[3] = GVertex(t_X, -t_Y, &this->m_Position);    // +x -y
+	this->m_Color = GColor(255,255,255);
+}
+
+GRectangle::GRectangle(const float& in_OriginX, const float& in_OriginY, const float& in_Width, const float& in_Height, const GColor& in_Color)
+{
+	this->m_Sizes[0] = in_Width;
+	this->m_Sizes[1] = in_Height;
+	this->m_Position = GVertex(in_OriginX, in_OriginY);
+	float t_X = float(this->m_Sizes[0] / 2.0);
+	float t_Y = float(this->m_Sizes[1] / 2.0);
+	this->m_Vertices[0] = GVertex(-t_X, -t_Y, &this->m_Position);   // -x -y
+	this->m_Vertices[1] = GVertex(-t_X, t_Y, &this->m_Position);    // -x +y
+	this->m_Vertices[2] = GVertex(t_X, t_Y, &this->m_Position);     // +x +y
+	this->m_Vertices[3] = GVertex(t_X, -t_Y, &this->m_Position);    // +x -y
+	this->m_Color = in_Color;
+	std::cout << this->m_Color.GetString() << std::endl;
 }
 
 sf::VertexArray GRectangle::GetVertexArray()
@@ -24,8 +40,7 @@ sf::VertexArray GRectangle::GetVertexArray()
 	for (size_t i = 0; i < 4; i++)
 	{
 		out_VertexArray[i] = this->m_Vertices[i].GetVector();
-		out_VertexArray[i].color = sf::Color::White;
-//		std::cout << sf::Color::White << std::endl;
+		out_VertexArray[i].color = this->m_Color.ToSFML();
 	}
 	return out_VertexArray;
 }
@@ -49,4 +64,8 @@ void GRectangle::SetX(const float& in_NewX)
 float GRectangle::GetX()
 {
 	return this->m_Position.GetX();
+}
+GColor GRectangle::GetColor()
+{
+	return this->m_Color;
 }
