@@ -4,8 +4,8 @@ project(sim)
 set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
-set(MINGW_ROOT C:/msys64/mingw64)
-set(SFML_ROOT D:/SFML-64)
+set(MINGW_ROOT A:/msys64/mingw64)
+set(SFML_ROOT A:/SFML-64)
 
 add_executable(sim main.cpp headers/Window.hpp "components/view/window/Window.cpp" "tests/bubbleSort.cpp" "components/view/shapes/GRectangle.cpp" headers/GRectangle.hpp "components/view/utils/GVertex.cpp" headers/GVertex.hpp "components/view/color/GColor.cpp" headers/GColor.hpp)
 

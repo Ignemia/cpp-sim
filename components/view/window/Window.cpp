@@ -1,5 +1,4 @@
 #include <GVertex.hpp>
-#include <iostream>
 #include "Window.hpp"
 
 GWindow *GWindow::m_Instance = nullptr;
