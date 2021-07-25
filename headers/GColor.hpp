@@ -19,7 +19,7 @@ struct HSVMeta
 class GColor
 {
 private:
-	unsigned int rgba[4] = {0, 0, 0, 255};
+	uint8_t rgba[4] = {0, 0, 0, 255};
 	HSVMeta getHSVSetup();
 public:
 	GColor();

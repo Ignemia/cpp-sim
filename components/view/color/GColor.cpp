@@ -5,41 +5,43 @@
 #include <cmath>
 #include <iostream>
 #include "GColor.hpp"
+
 #define PI_3 M_PI/3
 
 HSVMeta GColor::getHSVSetup()
 {
-	float t_Red_ = float(this->rgba[0]) / 255.0f;
-	float t_Green_ = float(this->rgba[1]) / 255.0f;
-	float t_Blue_ = float(this->rgba[2]) / 255.0f;
 	
-	float& l_Min = t_Red_;
+	std::cout << rgba[0]*1 << " , " << rgba[1]*1 << " , " << rgba[2]*1 << std::endl;
+	
+	int l_Min = rgba[0]*1;
 	char l_MinChar = 'R';
-	if (t_Green_ < l_Min)
+	if (rgba[1]*1 < l_Min)
 	{
-		l_Min = t_Green_;
+		l_Min = rgba[1]*1;
 		l_MinChar = 'G';
 	}
-	if (t_Blue_ < l_Min)
+	if (rgba[2]*1 < l_Min)
 	{
-		l_Min = t_Blue_;
+		l_Min = rgba[2]*1;
 		l_MinChar = 'B';
 	}
 	
-	float& l_Max = t_Red_;
+	int l_Max = rgba[0]*1;
 	char l_MaxChar = 'R';
-	if (t_Green_ > l_Min)
+	if (rgba[1]*1 > l_Max)
 	{
-		l_Max = t_Green_;
+		l_Max = rgba[1]*1;
 		l_MaxChar = 'G';
 	}
-	if (t_Blue_ > l_Min)
+	if (rgba[2]*1 > l_Max)
 	{
-		l_Max = t_Blue_;
+		l_Max = rgba[2]*1;
 		l_MaxChar = 'B';
 	}
 	
-	return {l_Min, l_Max, {t_Red_, t_Green_, t_Blue_}, l_MinChar, l_MaxChar};
+	return {float(l_Min) / 255.f, float(l_Max) / 255.f,
+			{float(rgba[0]) / 255.f, float(rgba[1]) / 255.f, float(rgba[2]) / 255.f},
+			l_MinChar,l_MaxChar};
 }
 
 GColor::GColor() = default;
@@ -80,28 +82,21 @@ GColor GColor::Parse_HSV(const std::vector<float>& in_HSV)
 	float S = in_HSV.at(1);
 	float V = in_HSV.at(2);
 	
-	std::cout << H << ", " << S << ", " << V << std::endl;
-	
 	double i = floor(double(H) * 6);
 	double f = (H * 6) - i;
-	
-	std::cout << i << ", " << f << std::endl;
 	
 	float p = V * (1 - S);
 	float q = V * (1 - (f * S));
 	float t = V * (1 - ((1 - f) * S));
 	
-	std::cout << p << ", " << q << ", " << t << std::endl;
-	
 	float out_R_, out_G_, out_B_;
-	
 	
 	if (H < PI_3)
 	{
 		out_R_ = V;
 		out_G_ = t;
 		out_B_ = p;
-	} else if (H < 2*PI_3)
+	} else if (H < 2 * PI_3)
 	{
 		out_R_ = q;
 		out_G_ = V;
@@ -111,12 +106,12 @@ GColor GColor::Parse_HSV(const std::vector<float>& in_HSV)
 		out_R_ = p;
 		out_G_ = V;
 		out_B_ = t;
-	} else if (H < 4*PI_3)
+	} else if (H < 4 * PI_3)
 	{
 		out_R_ = p;
 		out_G_ = q;
 		out_B_ = V;
-	} else if (H < 5*PI_3)
+	} else if (H < 5 * PI_3)
 	{
 		out_R_ = t;
 		out_G_ = p;
@@ -128,11 +123,9 @@ GColor GColor::Parse_HSV(const std::vector<float>& in_HSV)
 		out_B_ = q;
 	}
 	
-	std::cout << H << "\t" << "(" << out_R_ << ", " << out_G_ << ", " << out_B_ << ")" << std::endl;
-	
-	unsigned int R = out_R_ * 255, G = out_G_ * 255, B = out_B_ * 255;
-	
-	std::cout << H << "\t" << "(" << R << ", " << G << ", " << B << ")" << std::endl;
+	uint8_t R = out_R_ * 255, G = out_G_ * 255, B = out_B_ * 255;
+
+	std::cout << H*180/M_PI << "\t" << "(" << R*1 << ", " << G*1 << ", " << B*1 << ")" << std::endl;
 	
 	return GColor(R, G, B);
 }
@@ -219,7 +212,7 @@ unsigned int GColor::GetBlue()
 float GColor::GetHue()
 {
 	HSVMeta l_HSVSetup = this->getHSVSetup();
-	std::cout << l_HSVSetup.charMax << " - " << l_HSVSetup.fMax << "\t" << l_HSVSetup.charMin << " - " << l_HSVSetup.fMin << "\t"<< std::endl;
+//	std::cout << l_HSVSetup.charMax << " - " << l_HSVSetup.fMax << "\t" << l_HSVSetup.charMin << " - " << l_HSVSetup.fMin << "\t"<< std::endl;
 	float l_Delta = l_HSVSetup.fMax - l_HSVSetup.fMin;
 	float out_Angle;
 	switch (l_HSVSetup.charMax)

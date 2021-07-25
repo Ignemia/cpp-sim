@@ -48,7 +48,7 @@
 
 namespace BS_TEST {
 	int g_WindowWidth = 1280;
-	float g_Density = .5f;
+	float g_Density = .1f;
 	int g_Count = g_WindowWidth * g_Density;
 	
 	std::vector<int> s_Inp;
@@ -124,22 +124,22 @@ namespace BS_TEST {
 		std::cout << c.GetHue();
 		
 		
-//		GenerateValues();
+		GenerateValues();
 		GWindow& window = GWindow::Get_Instance();
-//		std::vector<GRectangle> v_Rects;
-//		GenerateRectangles(v_Rects);
-//		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
-//		{
-//			for (auto rect : v_Rects) rect.Draw(window.root);
-//			if (!sort_pass(v_Rects))
-//			{
-//				s_Inp.clear();
-//				v_Rects.clear();
-//				GenerateValues();
-//				GenerateRectangles(v_Rects);
-//			}
-//		};
-//		window.m_drawFunction.push_back(a);
+		std::vector<GRectangle> v_Rects;
+		GenerateRectangles(v_Rects);
+		std::function<void(sf::RenderWindow*)> a = [&](sf::RenderWindow*)
+		{
+			for (auto rect : v_Rects) rect.Draw(window.root);
+			if (!sort_pass(v_Rects))
+			{
+				s_Inp.clear();
+				v_Rects.clear();
+				GenerateValues();
+				GenerateRectangles(v_Rects);
+			}
+		};
+		window.m_drawFunction.push_back(a);
 		window.Run();
 	}
 }
