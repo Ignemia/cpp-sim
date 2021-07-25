@@ -53,7 +53,7 @@ important things you might need to create a simulation.
         Opalecký Physics Simulations -> ops::
 
 ##Todo list of projects before finish:
-- Bubble sort of colors based on their frequency - **×**
+- Bubble sort of colors based on their hue - **done**
 - Make bubbles fear the cursor and flee it also reverse when right-clicked - **×**
 - Make a 3D cube made of 2D triangles (shaded) - **×**
 - Maze Generator - **×**
