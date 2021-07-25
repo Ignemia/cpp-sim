@@ -31,7 +31,6 @@ GRectangle::GRectangle(const float& in_OriginX, const float& in_OriginY, const f
 	this->m_Vertices[2] = GVertex(t_X, t_Y, &this->m_Position);     // +x +y
 	this->m_Vertices[3] = GVertex(t_X, -t_Y, &this->m_Position);    // +x -y
 	this->m_Color = in_Color;
-	std::cout << this->m_Color.GetString() << std::endl;
 }
 
 sf::VertexArray GRectangle::GetVertexArray()

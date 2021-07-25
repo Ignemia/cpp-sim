@@ -10,38 +10,34 @@
 
 HSVMeta GColor::getHSVSetup()
 {
+
 	
-	std::cout << rgba[0]*1 << " , " << rgba[1]*1 << " , " << rgba[2]*1 << std::endl;
-	
-	int l_Min = rgba[0]*1;
-	char l_MinChar = 'R';
-	if (rgba[1]*1 < l_Min)
+	int l_Min = rgba[0] * 1;
+	if (rgba[1] * 1 < l_Min)
 	{
-		l_Min = rgba[1]*1;
-		l_MinChar = 'G';
+		l_Min = rgba[1] * 1;
 	}
-	if (rgba[2]*1 < l_Min)
+	if (rgba[2] * 1 < l_Min)
 	{
-		l_Min = rgba[2]*1;
-		l_MinChar = 'B';
+		l_Min = rgba[2] * 1;
 	}
 	
-	int l_Max = rgba[0]*1;
+	int l_Max = rgba[0] * 1;
 	char l_MaxChar = 'R';
-	if (rgba[1]*1 > l_Max)
+	if (rgba[1] * 1 > l_Max)
 	{
-		l_Max = rgba[1]*1;
+		l_Max = rgba[1] * 1;
 		l_MaxChar = 'G';
 	}
-	if (rgba[2]*1 > l_Max)
+	if (rgba[2] * 1 > l_Max)
 	{
-		l_Max = rgba[2]*1;
+		l_Max = rgba[2] * 1;
 		l_MaxChar = 'B';
 	}
 	
 	return {float(l_Min) / 255.f, float(l_Max) / 255.f,
-			{float(rgba[0]) / 255.f, float(rgba[1]) / 255.f, float(rgba[2]) / 255.f},
-			l_MinChar,l_MaxChar};
+	        {float(rgba[0]) / 255.f, float(rgba[1]) / 255.f, float(rgba[2]) / 255.f},
+	        l_MaxChar};
 }
 
 GColor::GColor() = default;
@@ -82,50 +78,45 @@ GColor GColor::Parse_HSV(const std::vector<float>& in_HSV)
 	float S = in_HSV.at(1);
 	float V = in_HSV.at(2);
 	
-	double i = floor(double(H) * 6);
-	double f = (H * 6) - i;
+	float l_SaturationBase = V * S;
+	float l_Interpolation = l_SaturationBase * float(1 - std::abs(std::fmod((3 * H / M_PI), 2) - 1));
+	float l_ValueBase = V - l_SaturationBase;
 	
-	float p = V * (1 - S);
-	float q = V * (1 - (f * S));
-	float t = V * (1 - ((1 - f) * S));
 	
-	float out_R_, out_G_, out_B_;
+	float out_R_ = 0;
+	float out_G_ = 0;
+	float out_B_ = 0;
 	
 	if (H < PI_3)
 	{
-		out_R_ = V;
-		out_G_ = t;
-		out_B_ = p;
+		out_R_ = l_SaturationBase;
+		out_G_ = l_Interpolation;
 	} else if (H < 2 * PI_3)
 	{
-		out_R_ = q;
-		out_G_ = V;
-		out_B_ = p;
+		out_R_ = l_Interpolation;
+		out_G_ = l_SaturationBase;
 	} else if (H < M_PI)
 	{
-		out_R_ = p;
-		out_G_ = V;
-		out_B_ = t;
+		out_G_ = l_SaturationBase;
+		out_B_ = l_Interpolation;
 	} else if (H < 4 * PI_3)
 	{
-		out_R_ = p;
-		out_G_ = q;
-		out_B_ = V;
+		out_G_ = l_Interpolation;
+		out_B_ = l_SaturationBase;
 	} else if (H < 5 * PI_3)
 	{
-		out_R_ = t;
-		out_G_ = p;
-		out_B_ = q;
+		out_R_ = l_Interpolation;
+		out_B_ = l_SaturationBase;
 	} else
 	{
-		out_R_ = V;
-		out_G_ = p;
-		out_B_ = q;
+		out_R_ = l_SaturationBase;
+		out_B_ = l_Interpolation;
 	}
 	
-	uint8_t R = out_R_ * 255, G = out_G_ * 255, B = out_B_ * 255;
+	uint8_t R = (int)(float(out_R_ + l_ValueBase) * 255);
+	uint8_t G = (int)(float(out_G_ + l_ValueBase) * 255);
+	uint8_t B = (int)(float(out_B_ + l_ValueBase) * 255);
 
-	std::cout << H*180/M_PI << "\t" << "(" << R*1 << ", " << G*1 << ", " << B*1 << ")" << std::endl;
 	
 	return GColor(R, G, B);
 }
@@ -212,16 +203,15 @@ unsigned int GColor::GetBlue()
 float GColor::GetHue()
 {
 	HSVMeta l_HSVSetup = this->getHSVSetup();
-//	std::cout << l_HSVSetup.charMax << " - " << l_HSVSetup.fMax << "\t" << l_HSVSetup.charMin << " - " << l_HSVSetup.fMin << "\t"<< std::endl;
 	float l_Delta = l_HSVSetup.fMax - l_HSVSetup.fMin;
 	float out_Angle;
 	switch (l_HSVSetup.charMax)
 	{
-		default: out_Angle = ((l_HSVSetup.rgb[1] - l_HSVSetup.rgb[2]) / l_Delta);
+		default: out_Angle = std::fmod(((l_HSVSetup.rgb[1] - l_HSVSetup.rgb[2]) / l_Delta), 6);
 			break;
-		case 'G': out_Angle = ((l_HSVSetup.rgb[1] - l_HSVSetup.rgb[2]) / l_Delta) + 2.0f;
+		case 'G': out_Angle = ((l_HSVSetup.rgb[2] - l_HSVSetup.rgb[0]) / l_Delta) + 2.0f;
 			break;
-		case 'B': out_Angle = ((l_HSVSetup.rgb[1] - l_HSVSetup.rgb[2]) / l_Delta) + 4.0f;
+		case 'B': out_Angle = ((l_HSVSetup.rgb[0] - l_HSVSetup.rgb[1]) / l_Delta) + 4.0f;
 			break;
 	}
 	return out_Angle;

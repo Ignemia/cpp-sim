@@ -48,7 +48,7 @@
 
 namespace BS_TEST {
 	int g_WindowWidth = 1280;
-	float g_Density = .1f;
+	float g_Density = 3.f;
 	int g_Count = g_WindowWidth * g_Density;
 	
 	std::vector<int> s_Inp;
@@ -119,11 +119,6 @@ namespace BS_TEST {
 	
 	void run()
 	{
-		
-		GColor c = GColor::Parse_HSV({(310*M_PI)/180, 1.f, 1.f});
-		std::cout << c.GetHue();
-		
-		
 		GenerateValues();
 		GWindow& window = GWindow::Get_Instance();
 		std::vector<GRectangle> v_Rects;

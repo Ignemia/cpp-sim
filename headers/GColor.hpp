@@ -13,7 +13,7 @@ struct HSVMeta
 {
 	float fMin, fMax;
 	float rgb[3];
-	char charMin, charMax;
+	char charMax;
 };
 
 class GColor
