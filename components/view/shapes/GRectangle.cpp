@@ -16,7 +16,7 @@ GRectangle::GRectangle(const float& in_OriginX, const float& in_OriginY, const f
 	this->m_Vertices[1] = GVertex(-t_X, t_Y, &this->m_Position);    // -x +y
 	this->m_Vertices[2] = GVertex(t_X, t_Y, &this->m_Position);     // +x +y
 	this->m_Vertices[3] = GVertex(t_X, -t_Y, &this->m_Position);    // +x -y
-	this->m_Color = GColor(255,255,255);
+	this->m_Color = GColor(255, 255, 255);
 }
 
 GRectangle::GRectangle(const float& in_OriginX, const float& in_OriginY, const float& in_Width, const float& in_Height, const GColor& in_Color)

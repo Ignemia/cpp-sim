@@ -9,11 +9,11 @@
 
 class GVertex
 {
-private:
+protected:
 	static float s_Origin[2];
 	static GVertex s_OriginVertex;
 
-private:
+protected:
 	float m_X = 0;
 	float m_Y = 0;
 	GVertex* m_RelationPoint = (GVertex*) GVertex::Get_Origin_Vertex();
