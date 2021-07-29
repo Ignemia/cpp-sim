@@ -27,22 +27,22 @@ void GVector::Rotate(const float& in_Alpha)
 
 }
 
-float GVector::GetMagnitude()
+float GVector::GetMagnitude() const
 {
-	return 0;
+	return this->m_Magnitude;
 }
 
-float GVector::GetDirection()
+float GVector::GetDirection() const
 {
-	return 0;
+	return std::asin(this->m_Magnitude / this->m_DeltaY);
 }
 
-float GVector::GetDeltaX()
+float GVector::GetDeltaX() const
 {
-	return 0;
+	return this->m_Magnitude * this->m_DeltaX;
 }
 
-float GVector::GetDeltaY()
+float GVector::GetDeltaY() const
 {
-	return 0;
+	return this->m_Magnitude * this->m_DeltaY;
 }

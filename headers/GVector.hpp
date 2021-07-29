@@ -1,7 +1,7 @@
 //
 // Created by adam on 7/26/2021.
 //
-
+#pragma once
 #ifndef SIM_GVECTOR_HPP
 #define SIM_GVECTOR_HPP
 
@@ -13,10 +13,10 @@ class GVector : GVertex
 public:
 	GVector(const float& in_deltaX, const float& in_deltaY);
 	GVector(GVertex* in_startingPoint, const GVertex& in_endpoint);
-	float GetMagnitude();
-	float GetDirection();
-	float GetDeltaX();
-	float GetDeltaY();
+	float GetMagnitude() const;
+	float GetDirection() const;
+	float GetDeltaX() const;
+	float GetDeltaY() const;
 	void Rotate(const float& in_Alpha);
 };
 
