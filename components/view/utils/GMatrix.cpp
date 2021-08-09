@@ -4,19 +4,19 @@
 
 #include "GMatrix.hpp"
 
-GMatrix::GMatrix(float in_m, float in_n)
-{
-
+GMatrix::GMatrix(size_t in_m, size_t in_n) {
+    this->m_Data.reserve(in_m * in_n);
+    this->m_Data = {0};
 }
 
-GMatrix::GMatrix(float in_m, float in_n, const float& in_default)
-{
-
+GMatrix::GMatrix(size_t in_m, size_t in_n, const float &in_default) {
+    this->m_Data.reserve(in_m * in_n);
+    this->m_Data = {0};
 }
 
-GMatrix::GMatrix(float in_m, float in_n, const std::vector<float>& in_Values)
-{
-
+GMatrix::GMatrix(size_t in_m, size_t in_n, const std::vector<const float> &in_Values) {
+    this->m_Data.reserve(in_m * in_n);
+    this->m_Data = {0};
 }
 
 std::vector<float> GMatrix::Multiply(const GMatrix& in_Other) const
@@ -34,12 +34,14 @@ float GMatrix::GetDeterminant(const GMatrix& in_Other) const
 	return 0;
 }
 
-std::vector<float> GMatrix::Add(const GMatrix& in_Other) const
-{
-	return {};
+std::vector<float> GMatrix::Add(const GMatrix &in_Other) const {
+    return {};
 }
 
-std::vector<float> GMatrix::Subtract(const GMatrix& in_Other) const
-{
-	return {};
+std::vector<float> GMatrix::Subtract(const GMatrix &in_Other) const {
+    return {};
+}
+
+float GMatrix::Retrieve(size_t in_PosX, size_t in_PosY) const {
+    return 0;
 }

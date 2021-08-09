@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <ctime>
 #include "GColor.hpp"
 
 #define PI_3 M_PI/3
