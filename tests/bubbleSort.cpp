@@ -12,7 +12,7 @@
 /*
  *
  * Top-Down analysis:
- * Task: Create a visualisation of bubble sort sorting colors by the numeric value of it's hex code.
+ * Task: Create a visualisation of bubble sort colors by the numeric value of it's hex code.
  * Major milestones:
  *  1.  Get a Bubble Sort going (done)
  *  2.  Open a window with a bunch of white rectangles of different heights based on their values and visualise each step of sorting - ×

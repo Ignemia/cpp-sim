@@ -4,22 +4,22 @@
 
 #include "GMatrix.hpp"
 
-GMatrix::GMatrix(size_t in_m, size_t in_n) {
+GMatrix::GMatrix(std::size_t in_m, std::size_t in_n) {
     this->m_Data.reserve(in_m * in_n);
     this->m_Data = {0};
 }
 
-GMatrix::GMatrix(size_t in_m, size_t in_n, const float &in_default) {
+GMatrix::GMatrix(std::size_t in_m, std::size_t in_n, const float &in_default) {
     this->m_Data.reserve(in_m * in_n);
     this->m_Data = {0};
 }
 
-GMatrix::GMatrix(size_t in_m, size_t in_n, const std::vector<const float> &in_Values) {
+GMatrix::GMatrix(std::size_t in_m, std::size_t in_n, const std::vector<const float> &in_Values) {
     this->m_Data.reserve(in_m * in_n);
     this->m_Data = {0};
 }
 
-std::vector<float> GMatrix::Multiply(const GMatrix& in_Other) const
+std::vector<float> GMatrix::Multiply(const GMatrix& in_Other)
 {
 	return {};
 }
@@ -42,6 +42,6 @@ std::vector<float> GMatrix::Subtract(const GMatrix &in_Other) const {
     return {};
 }
 
-float GMatrix::Retrieve(size_t in_PosX, size_t in_PosY) const {
+float GMatrix::Retrieve(std::size_t in_PosX, std::size_t in_PosY) const {
     return 0;
 }
